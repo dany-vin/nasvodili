@@ -454,7 +454,10 @@ class WrappedPresentation {
         }
 
         this.populateTopUsersUnified();
-        this.populateTopStickers();
+        // Defer stickers to avoid mobile freeze
+        requestAnimationFrame(() => {
+            this.populateTopStickers();
+        });
 
         if (this.stats.most_active_day && this.stats.most_active_day.date) {
             const date = new Date(this.stats.most_active_day.date);
@@ -883,13 +886,13 @@ class WrappedPresentation {
             return;
         }
 
-        // Create floating particles
+        // Create floating particles (reduced for mobile performance)
         if (particles) {
-            const particleEmojis = ['✨', '⭐', '💫', '🌟', '⚡'];
-            for (let i = 0; i < 8; i++) {
+            const particleEmojis = ['✨', '⭐', '💫'];
+            for (let i = 0; i < 4; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'sticker-particle';
-                particle.textContent = particleEmojis[Math.floor(Math.random() * particleEmojis.length)];
+                particle.textContent = particleEmojis[i % particleEmojis.length];
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.animationDelay = Math.random() * 6 + 's';
                 particle.style.animationDuration = (10 + Math.random() * 4) + 's';
@@ -923,7 +926,7 @@ class WrappedPresentation {
         };
 
         // Helper to create sticker image with proper error handling
-        const createStickerImg = (path, className, size) => {
+        const createStickerImg = (path, className, size, lazyLoad = false) => {
             const wrapper = document.createElement('div');
             wrapper.className = className + '-wrapper';
             wrapper.style.cssText = 'display: flex; align-items: center; justify-content: center;';
@@ -934,7 +937,7 @@ class WrappedPresentation {
             img.src = encodedPath;
             img.alt = 'sticker';
             img.className = className;
-            img.loading = 'eager'; // Load immediately for visible stickers
+            img.loading = lazyLoad ? 'lazy' : 'eager';
             img.decoding = 'async';
             if (size) {
                 img.style.width = size + 'px';
@@ -1027,7 +1030,7 @@ class WrappedPresentation {
             runners.appendChild(card);
         });
 
-        // Grid (rest of stickers)
+        // Grid (rest of stickers) - use lazy loading for performance
         grid.innerHTML = '';
         stickers.slice(3, 13).forEach((sticker, idx) => {
             const card = document.createElement('div');
@@ -1038,7 +1041,7 @@ class WrappedPresentation {
             rank.className = 'grid-rank';
             rank.textContent = '#' + (idx + 4);
             
-            const stickerImg = createStickerImg(sticker.path, 'grid-sticker');
+            const stickerImg = createStickerImg(sticker.path, 'grid-sticker', null, true);
             
             const count = document.createElement('div');
             count.className = 'grid-count';
