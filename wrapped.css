@@ -2309,6 +2309,8 @@ body {
     cursor: pointer;
     padding: 3px;
     margin: -3px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .progress-dot.active {
