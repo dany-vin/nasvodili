@@ -2929,6 +2929,53 @@ body {
     box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
 }
 
+/* Mobile Performance Optimizations */
+@media (max-width: 768px), (hover: none) {
+    /* Disable heavy decorative animations on mobile */
+    .sticker-particle,
+    .stickers-particles {
+        display: none !important;
+    }
+    
+    .cardShine,
+    .champion-card::before {
+        animation: none !important;
+    }
+    
+    .stickers-icon-glow {
+        animation: none !important;
+        opacity: 0.5;
+    }
+    
+    .stickers-icon {
+        animation: none !important;
+    }
+    
+    .champion-crown {
+        animation: none !important;
+    }
+    
+    .champion-sticker,
+    .runner-sticker,
+    .grid-sticker {
+        animation: none !important;
+    }
+    
+    .stickers-title {
+        animation: none !important;
+        background-position: 50% 50%;
+    }
+    
+    /* Optimize slide transitions */
+    .slide {
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    }
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
     *,
