@@ -350,6 +350,7 @@ class WrappedPresentation {
     goToSlide(index) {
         if (index < 0 || index >= this.totalSlides) return;
         if (this.isTransitioning) return;
+        if (index === this.currentSlide) return;
 
         this.isTransitioning = true;
 
@@ -363,6 +364,11 @@ class WrappedPresentation {
             return;
         }
 
+        // Update dots immediately for better responsiveness
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+
         if (index > this.currentSlide) {
             currentSlideEl.classList.add('exit-left');
             nextSlideEl.classList.add('enter-right');
@@ -371,17 +377,16 @@ class WrappedPresentation {
             nextSlideEl.classList.add('enter-left');
         }
 
+        const previousSlide = this.currentSlide;
+        this.currentSlide = index;
+        this.updateNavigationButtons();
+        this.updateProgressBar();
+
         setTimeout(() => {
-            currentSlideEl.classList.remove('active', 'exit-left', 'exit-right');
+            slides[previousSlide].classList.remove('active', 'exit-left', 'exit-right');
             nextSlideEl.classList.remove('enter-left', 'enter-right');
             nextSlideEl.classList.add('active');
             
-            if (dots[this.currentSlide]) dots[this.currentSlide].classList.remove('active');
-            if (dots[index]) dots[index].classList.add('active');
-            
-            this.currentSlide = index;
-            this.updateNavigationButtons();
-            this.updateProgressBar();
             this.isTransitioning = false;
         }, 600);
     }
