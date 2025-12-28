@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1e3c72">
+    <title>Nasvodili Wrapped 2025</title>
+    <link rel="stylesheet" href="wrapped.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script src="max_srach_quotes.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Slide 1: Intro -->
+        <section class="slide active" data-slide="0">
+            <div class="intro-decorations" id="intro-decorations"></div>
+            <div class="content fade-in">
+                <div class="intro-main">
+                    <h1 class="title-xl">НАСВОДІЛИ</h1>
+                    <h2 class="subtitle">Wrapped 2025</h2>
+                    <p class="description">Ваша історія у звуках і словах</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Top Stickers -->
+        <section class="slide" data-slide="1">
+            <div class="stickers-particles" id="stickers-particles"></div>
+            <div class="content fade-in">
+                <div class="stickers-header">
+                    <div class="stickers-icon-wrapper">
+                        <div class="stickers-icon-glow"></div>
+                        <span class="stickers-icon">✨</span>
+                    </div>
+                    <h2 class="stickers-title">Найкрутіші стікери</h2>
+                    <p class="stickers-subtitle">Ті, що використовували найчастіше</p>
+                </div>
+                
+                <div class="stickers-champion" id="stickers-champion">
+                    <!-- #1 sticker with special effects -->
+                </div>
+                
+                <div class="stickers-runners" id="stickers-runners">
+                    <!-- #2 and #3 stickers -->
+                </div>
+                
+                <div class="stickers-grid" id="stickers-grid">
+                    <!-- Remaining top stickers in grid -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Total Messages -->
+        <section class="slide" data-slide="2">
+            <div class="messages-floating" id="messages-floating"></div>
+            <div class="content fade-in">
+                <p class="pre-title">Цього року ви...</p>
+                <h1 class="big-number" id="total-messages">0</h1>
+                <p class="post-title">повідомлень<br>написали разом</p>
+                <div class="sparkles">✨</div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Total Words -->
+        <section class="slide" data-slide="4">            <div class="words-floating" id="words-floating"></div>            <div class="content fade-in">
+                <p class="pre-title">Це</p>
+                <h1 class="big-number" id="total-words">0</h1>
+                <p class="post-title">слів про музику<br>та життя</p>
+                <div class="floating-emoji">💬</div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Total Characters -->
+        <section class="slide" data-slide="4">
+            <div class="chernivtsi-slideshow" id="chernivtsi-slideshow"></div>
+            <div class="content fade-in">
+                <p class="pre-title">Рік у символах</p>
+                <h1 class="big-number" id="total-chars">0</h1>
+                <p class="post-title">символів ви набрали</p>
+                <p class="description" id="wing-equivalent">—</p>
+                <div class="floating-emoji">🎛️</div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Top Contributors (switchable) -->
+        <section class="slide" data-slide="5">
+            <div class="content fade-in">
+                <h2 class="section-title">Найактивніші учасники</h2>
+                <div class="leaderboard-switch">
+                    <div class="switch-buttons">
+                        <button class="switch-btn active" data-type="messages" aria-label="По повідомленнях">🙈</button>
+                        <button class="switch-btn" data-type="words" aria-label="По словах">🙉</button>
+                    </div>
+                    <div class="switch-labels" aria-hidden="true">
+                        <span>повідомлення</span>
+                        <span>слова</span>
+                    </div>
+                </div>
+                <div class="leaderboard leaderboard-scroll" id="top-users-unified">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Most Active Day -->
+        <section class="slide" data-slide="6">
+            <div class="day-messages-floating" id="most-day-messages"></div>
+            <div class="content fade-in">
+                <p class="pre-title">Найбільш насичений день</p>
+                <h1 class="medium-number" id="most-active-day">--</h1>
+                <p class="post-title" id="most-active-day-count">-- повідомлень</p>
+                <div class="calendar-icon">📅</div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Most Active Hour with Chart -->
+        <section class="slide" data-slide="7">
+            <div class="content fade-in">
+                <p class="pre-title">Пікова активність о</p>
+                <h1 class="big-number" id="most-active-hour">--</h1>
+                <p class="post-title">годині</p>
+                <div class="chart-container chart-inline">
+                    <canvas id="hour-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Media Content -->
+        <section class="slide" data-slide="8">
+            <div class="content fade-in">
+                <p class="pre-title">Поділились</p>
+                <h1 class="big-number" id="media-count">0</h1>
+                <p class="post-title">медіа файлами</p>
+                <div class="floating-emoji">📸</div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Top Emojis -->
+        <section class="slide" data-slide="9">
+            <div class="content fade-in">
+                <h2 class="section-title">Улюблені емоджі</h2>
+                <div class="emoji-grid" id="top-emojis">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Top Reactions -->
+        <section class="slide" data-slide="10">
+            <div class="content fade-in">
+                <h2 class="section-title">Найпопулярніші реакції</h2>
+                <div class="reaction-list" id="top-reactions">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Longest Message -->
+        <section class="slide" data-slide="11">
+            <div class="content fade-in">
+                <p class="pre-title">Найдовше повідомлення</p>
+                <p class="message-stats-info" id="longest-message-stats">-- слів, -- символів</p>
+                <div class="message-with-avatar">
+                    <div class="message-avatar" id="longest-avatar"></div>
+                    <div class="message-content-wrapper">
+                        <div class="message-preview" id="longest-message">
+                            <!-- Filled by JS -->
+                        </div>
+                        <p class="message-author" id="longest-author">--</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 13: Most Reacted -->
+        <section class="slide" data-slide="12">
+            <div class="content fade-in">
+                <p class="pre-title">Найбільш реаговане</p>
+                <div class="message-with-avatar">
+                    <div class="message-avatar" id="reacted-avatar"></div>
+                    <div class="message-content-wrapper">
+                        <div class="message-preview" id="most-reacted-message">
+                            <!-- Filled by JS -->
+                        </div>
+                        <p class="message-author" id="reacted-author">--</p>
+                    </div>
+                </div>
+                <div class="reactions-display" id="reactions-display">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 14: Activity Chart -->
+        <section class="slide" data-slide="13">
+            <div class="content fade-in">
+                <h2 class="section-title">Активність по місяцях</h2>
+                <div class="chart-container">
+                    <canvas id="activity-chart"></canvas>
+                </div>
+                <div class="chart-insights" id="month-insights">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 15: Srachs Analysis -->
+        <section class="slide" data-slide="14">
+            <div class="content fade-in">
+                <h2 class="section-title">🔥 Аналіз срачів</h2>
+                <p class="section-subtitle">Найгарячіші дискусії року</p>
+                <div class="srachs-stats srach-inline" id="srachs-stats">
+                    <!-- Filled by JS -->
+                </div>
+                <div class="subsection-header">
+                    <h3 class="subsection-title">⚔️ Гуру срача</h3>
+                </div>
+                <div class="guru-grid srach-inline" id="guru-grid">
+                    <!-- Filled by JS - Hero #1 -->
+                </div>
+                <div class="guru-rest-grid" id="guru-rest-grid">
+                    <!-- Filled by JS - #2-5 grid -->
+                </div>
+                <div class="top-srach" id="top-srach">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 16: Final Vegas Slot Machine -->
+        <section class="slide vegas-finale" data-slide="15">
+            <div class="vegas-lights">
+                <div class="neon-border"></div>
+            </div>
+            <div class="content fade-in">
+                <h1 class="vegas-title">NASVODILI 25 WRAPPED</h1>
+                
+                <div class="slot-machine">
+                    <div class="slot-frame">
+                        <div class="slot-reel" id="reel1">
+                            <div class="slot-items" id="reel1-items"></div>
+                        </div>
+                        <div class="slot-reel" id="reel2">
+                            <div class="slot-items" id="reel2-items"></div>
+                        </div>
+                        <div class="slot-reel" id="reel3">
+                            <div class="slot-items" id="reel3-items"></div>
+                        </div>
+                    </div>
+                    <button class="slot-spin-btn" id="spin-btn">КРУТИТИ</button>
+                </div>
+                
+                <div class="vegas-footer">
+                    <p class="vegas-year">Побачимось в 2026!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slot Prize Modal -->
+        <div class="slot-modal" id="slot-modal">
+            <div class="slot-modal-content">
+                <div class="slot-modal-header">
+                    <span class="slot-modal-icon">🏆</span>
+                    <h3>ДЖЕКПОТ!</h3>
+                </div>
+                <div class="slot-modal-body">
+                    <div class="slot-prize-topic"></div>
+                    <div class="slot-prize-quote"></div>
+                    <div class="slot-prize-meta"></div>
+                </div>
+                <button class="slot-modal-close">Закрити</button>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <div class="navigation-inner">
+                <button class="nav-btn prev" id="prev-btn" aria-label="Попередній слайд">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="progress-dots" id="progress-dots" aria-label="Індикатор прогресу слайдів">
+                    <!-- Filled by JS -->
+                </div>
+                <button class="nav-btn next" id="next-btn" aria-label="Наступний слайд">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="wrapped_data.js"></script>
+    <script src="full_chat_summary.js"></script>
+    <script src="wrapped.js"></script>
+</body>
+</html>
