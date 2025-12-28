@@ -225,24 +225,12 @@ class WrappedPresentation {
             const dot = document.createElement('div');
             dot.className = 'progress-dot';
             if (i === 0) dot.classList.add('active');
-            // Click + touch for mobile reliability
-            const go = () => this.goToSlide(i);
-            dot.addEventListener('click', go);
-            dot.addEventListener('touchend', go, { passive: true });
+            dot.addEventListener('click', () => this.goToSlide(i));
             progressDots.appendChild(dot);
         }
 
-        const prevHandler = () => this.previousSlide();
-        const nextHandler = () => this.nextSlide();
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', prevHandler);
-            prevBtn.addEventListener('touchend', prevHandler, { passive: true });
-        }
-        if (nextBtn) {
-            nextBtn.addEventListener('click', nextHandler);
-            nextBtn.addEventListener('touchend', nextHandler, { passive: true });
-        }
+        if (prevBtn) prevBtn.addEventListener('click', () => this.previousSlide());
+        if (nextBtn) nextBtn.addEventListener('click', () => this.nextSlide());
 
         this.updateNavigationButtons();
     }
