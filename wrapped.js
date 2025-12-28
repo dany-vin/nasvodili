@@ -291,29 +291,54 @@ class WrappedPresentation {
 
     setupTouchNavigation() {
         let touchStartX = 0;
-        let touchEndX = 0;
         let touchStartY = 0;
-        let touchEndY = 0;
+        let touchStartTime = 0;
+        let isSwiping = false;
 
         const wrapper = document.querySelector('.wrapper');
 
         wrapper.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
+            touchStartX = e.changedTouches[0].clientX;
+            touchStartY = e.changedTouches[0].clientY;
+            touchStartTime = Date.now();
+            isSwiping = true;
+        }, { passive: true });
+
+        wrapper.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            
+            const touchX = e.changedTouches[0].clientX;
+            const touchY = e.changedTouches[0].clientY;
+            const diffX = Math.abs(touchX - touchStartX);
+            const diffY = Math.abs(touchY - touchStartY);
+            
+            // If vertical movement is dominant, cancel swipe detection
+            if (diffY > diffX && diffY > 10) {
+                isSwiping = false;
+            }
         }, { passive: true });
 
         wrapper.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            touchEndY = e.changedTouches[0].screenY;
-            this.handleSwipe(touchStartX, touchEndX, touchStartY, touchEndY);
+            if (!isSwiping) return;
+            
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const touchEndTime = Date.now();
+            
+            this.handleSwipe(touchStartX, touchEndX, touchStartY, touchEndY, touchEndTime - touchStartTime);
+            isSwiping = false;
         }, { passive: true });
     }
 
-    handleSwipe(startX, endX, startY, endY) {
+    handleSwipe(startX, endX, startY, endY, duration) {
         const diffX = startX - endX;
         const diffY = startY - endY;
+        const absDiffX = Math.abs(diffX);
+        const absDiffY = Math.abs(diffY);
 
-        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        // Require: horizontal movement > 60px, more horizontal than vertical (ratio 1.5:1),
+        // and duration < 500ms for a deliberate swipe
+        if (absDiffX > 60 && absDiffX > absDiffY * 1.5 && duration < 500) {
             if (diffX > 0) {
                 this.nextSlide();
             } else {
