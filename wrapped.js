@@ -349,10 +349,21 @@ class WrappedPresentation {
 
     goToSlide(index) {
         if (index < 0 || index >= this.totalSlides) return;
-        if (this.isTransitioning) return;
         if (index === this.currentSlide) return;
+        
+        // Force unlock if stuck for too long (safety valve)
+        if (this.isTransitioning) {
+            const now = Date.now();
+            if (this.transitionStartTime && (now - this.transitionStartTime) > 1500) {
+                // Force unlock after 1.5 seconds
+                this.isTransitioning = false;
+            } else {
+                return;
+            }
+        }
 
         this.isTransitioning = true;
+        this.transitionStartTime = Date.now();
 
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.progress-dot');
