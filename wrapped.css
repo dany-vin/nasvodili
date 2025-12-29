@@ -121,8 +121,8 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 30px 20px;
-    /* Extra space at bottom for navigation */
-    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+    /* Extra space at bottom for navigation - increased for safety */
+    padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
     animation: fadeInUp 0.8s ease forwards;
     /* Hide scrollbar but keep functionality */
     scrollbar-width: none;
