@@ -774,11 +774,11 @@ class WrappedPresentation {
         const emojis = this.stats.top_emojis || [];
         const users = this.getTopUsersByType('messages').slice(0, 10);
 
-        // Create spectacular decorative elements
+        // Create decorative elements (optimized for mobile)
         const decorations = [];
         
-        // Add random stickers (15 - rich coverage)
-        const stickerCount = Math.min(15, stickers.length);
+        // Add random stickers (5 for mobile performance)
+        const stickerCount = Math.min(5, stickers.length);
         for (let i = 0; i < stickerCount; i++) {
             const randomIndex = Math.floor(Math.random() * stickers.length);
             const sticker = stickers[randomIndex];
@@ -788,8 +788,8 @@ class WrappedPresentation {
             });
         }
 
-        // Add vibrant emojis (5-7)
-        for (let i = 0; i < Math.min(6, emojis.length); i++) {
+        // Add emojis (5 total)
+        for (let i = 0; i < Math.min(5, emojis.length); i++) {
             const emoji = emojis[Math.floor(Math.random() * emojis.length)];
             decorations.push({
                 type: 'emoji',
@@ -797,18 +797,9 @@ class WrappedPresentation {
             });
         }
 
-        // Add random emojis (8-10)
-        for (let i = 0; i < Math.min(10, emojis.length); i++) {
-            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-            decorations.push({
-                type: 'emoji',
-                content: emoji[0]
-            });
-        }
-
-        // Add user avatars (5) - use emoji as placeholders since we don't have real avatars
-        const avatarEmojis = ['👤', '👨', '👩', '🧑', '👥', '👨‍💻', '👩‍💻', '🧑‍💻'];
-        for (let i = 0; i < Math.min(5, users.length); i++) {
+        // Add user avatars (2)
+        const avatarEmojis = ['👤', '👨', '👩', '🧑'];
+        for (let i = 0; i < Math.min(2, users.length); i++) {
             decorations.push({
                 type: 'avatar',
                 content: avatarEmojis[Math.floor(Math.random() * avatarEmojis.length)]
@@ -885,17 +876,17 @@ class WrappedPresentation {
             return;
         }
 
-        // Create floating particles (reduced for mobile performance)
+        // Create floating particles (minimal for mobile performance)
         if (particles) {
-            const particleEmojis = ['✨', '⭐', '💫'];
-            for (let i = 0; i < 4; i++) {
+            const particleEmojis = ['✨', '⭐'];
+            for (let i = 0; i < 2; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'sticker-particle';
-                particle.textContent = particleEmojis[i % particleEmojis.length];
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (10 + Math.random() * 4) + 's';
-                particle.style.setProperty('--drift-x', `${-30 + Math.random() * 60}px`);
+                particle.textContent = particleEmojis[i];
+                particle.style.left = (25 + i * 50) + '%';
+                particle.style.animationDelay = (i * 3) + 's';
+                particle.style.animationDuration = '12s';
+                particle.style.setProperty('--drift-x', '0px');
                 particles.appendChild(particle);
             }
         }
