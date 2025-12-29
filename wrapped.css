@@ -121,8 +121,8 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 30px 20px;
-    /* Extra space at bottom for navigation - increased for safety */
-    padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+    /* Minimal space at bottom - content can scroll under navigation */
+    padding-bottom: 80px;
     animation: fadeInUp 0.8s ease forwards;
     /* Hide scrollbar but keep functionality */
     scrollbar-width: none;
@@ -874,6 +874,7 @@ body {
 }
 
 .grid-card {
+    position: relative;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
