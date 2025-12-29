@@ -870,6 +870,7 @@ body {
     gap: 8px;
     max-width: 420px;
     margin: clamp(12px, 2vh, 18px) auto 0;
+    margin-bottom: 20px; /* Extra space to scroll above navigation */
     padding: 0 10px;
 }
 
