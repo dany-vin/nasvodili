@@ -129,6 +129,11 @@ body {
     -ms-overflow-style: none;
 }
 
+/* Stickers slide: extra scroll room above fixed navigation */
+.slide[data-slide="1"] .content {
+    padding-bottom: calc(160px + env(safe-area-inset-bottom, 0px));
+}
+
 .content::-webkit-scrollbar {
     display: none;
 }
