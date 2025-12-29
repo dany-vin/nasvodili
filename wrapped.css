@@ -134,6 +134,11 @@ body {
     padding-bottom: calc(160px + env(safe-area-inset-bottom, 0px));
 }
 
+/* Leaderboard slide: ensure bottom isn't covered by navigation */
+.slide[data-slide="5"] .content {
+    padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px));
+}
+
 .content::-webkit-scrollbar {
     display: none;
 }
@@ -630,8 +635,12 @@ body {
 
 .leaderboard-scroll {
     max-height: clamp(320px, 60vh, 520px);
-    overflow-y: auto;
-    padding-right: 4px;
+    /* Always show scrollbar (desktop/Android); iOS may still overlay/fade by OS design */
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+    padding-right: 6px;
+    /* Allow scrolling last rows above fixed navigation */
+    padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px));
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
@@ -646,7 +655,8 @@ body {
 }
 
 .leaderboard-scroll::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
 }
 
 .leaderboard-item {
